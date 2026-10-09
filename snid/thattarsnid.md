@@ -10,7 +10,7 @@ Vikulegur þáttur á íslensku um það nýjasta í gervigreind. Ein löng útg
 
 1. **Nafn þáttarins.** Vinnuheitið er „AI-þátturinn“ (eins og repo-ið). Aðrar hugmyndir: „Gervigreind vikunnar“, „Vikan í gervigreind“.
 2. **Einn eða tveir stjórnendur?** Handrit fyrsta þáttar er skrifað fyrir einn stjórnanda (Adda) en hlutunum er auðvelt að skipta á tvo.
-3. **Lengd.** (8 til 12 mínútur á YouTube, 30 til 60 sekúndur hver klippa.)
+3. **Lengd.** (10 til 14 mínútur á YouTube, 30 til 90 sekúndur hver klippa. Handrit fyrsta þáttar er um 14 mínútur.)
 4. **Útgáfudagur.** (Föstudagur: flestar stóru fréttir vikunnar eru komnar fram.)
 5. **Slagorð.** (Tillaga: „EKKI GLEYMA HEIMILDUNUM!“, sjá kaflann um stílbrögð.)
 

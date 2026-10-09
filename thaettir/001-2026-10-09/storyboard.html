@@ -1,0 +1,387 @@
+<title>Storyboard fyrsta þáttar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=IBM+Plex+Mono:wght@400;500&family=Source+Sans+3:ital,wght@0,400;0,600;0,700;1,400&display=swap">
+<style>
+/* Layout: storyboard-blað. Haus, tímaræma þáttarins, svo rammar flokkaðir eftir liðum. */
+:root {
+  --paper: #eef1f4;
+  --panel: #ffffff;
+  --ink: #14171c;
+  --muted: #59626e;
+  --line: #c9d0d8;
+  --accent: #2340d8;
+  --mark: #ffd400;
+  --mark-ink: #14171c;
+  --rug: #d8352a;
+  --display: "Anton", "Impact", "Arial Narrow", sans-serif;
+  --body: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #101318; --panel: #191d23; --ink: #e7ebf0; --muted: #9aa3ae;
+    --line: #2d333c; --accent: #8495ff; --mark: #ffd400; --mark-ink: #14171c; --rug: #ff6a5c;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #101318; --panel: #191d23; --ink: #e7ebf0; --muted: #9aa3ae;
+  --line: #2d333c; --accent: #8495ff; --mark: #ffd400; --mark-ink: #14171c; --rug: #ff6a5c;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.5; }
+.wrap { max-width: 1200px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; }
+h1, h2, h3 { text-wrap: balance; margin: 0; }
+h1 { font-family: var(--display); font-weight: 400; font-size: clamp(2.4rem, 6vw, 4.2rem); line-height: 1; letter-spacing: 0.01em; text-transform: uppercase; }
+h2 { font-family: var(--display); font-weight: 400; font-size: clamp(1.5rem, 3vw, 2rem); text-transform: uppercase; letter-spacing: 0.02em; }
+.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.lede { max-width: 65ch; color: var(--muted); margin: 12px 0 0; }
+header { display: grid; gap: 10px; padding-bottom: 24px; border-bottom: 2px solid var(--ink); }
+a { color: var(--accent); }
+
+/* Ákvarðanir */
+.decisions { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; margin-top: 24px; }
+.decision { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px 16px; min-width: 0; }
+.decision b { display: block; font-size: 0.95rem; }
+.decision p { margin: 4px 0 0; color: var(--muted); font-size: 0.92rem; }
+
+/* Tímaræma */
+.strip-wrap { margin-top: 36px; display: grid; gap: 10px; }
+.strip { display: flex; width: 100%; border: 2px solid var(--ink); border-radius: 4px; overflow: hidden; }
+.strip a { display: block; text-decoration: none; color: var(--ink); padding: 8px 6px; border-right: 1px solid var(--ink); min-width: 0; background: var(--panel); }
+.strip a:last-child { border-right: 0; }
+.strip a:hover, .strip a:focus-visible { background: var(--mark); color: var(--mark-ink); outline: none; }
+.strip .t { font-family: var(--mono); font-size: 0.7rem; color: inherit; opacity: 0.75; display: block; }
+.strip .n { font-weight: 700; font-size: 0.78rem; display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.legend { display: flex; flex-wrap: wrap; gap: 14px; font-size: 0.85rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.chip { display: inline-block; font-family: var(--mono); font-size: 0.72rem; font-weight: 500; padding: 1px 6px; border-radius: 3px; background: var(--mark); color: var(--mark-ink); }
+.swatch { width: 22px; height: 12px; border: 1.5px dashed var(--accent); border-radius: 2px; display: inline-block; }
+
+/* Liðir og rammar */
+section.seg { margin-top: 44px; scroll-margin-top: 16px; }
+.seg-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+.seg-head .src { font-size: 0.9rem; color: var(--muted); }
+.seg-head .src b { color: var(--ink); font-weight: 600; }
+.grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 18px; margin-top: 16px; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; overflow: hidden; display: flex; flex-direction: column; min-width: 0; }
+.frame { position: relative; aspect-ratio: 16 / 9; max-width: 100%; border-bottom: 1px solid var(--line); color: var(--ink); background: var(--panel); }
+.frame svg { display: block; width: 100%; height: 100%; }
+.meta { padding: 10px 12px 14px; display: grid; gap: 6px; min-width: 0; }
+.row1 { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.num { font-family: var(--display); font-size: 1.25rem; line-height: 1; }
+.tc { font-family: var(--mono); font-size: 0.8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+.shot { font-family: var(--mono); font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase; color: var(--accent); }
+.line { font-style: italic; margin: 0; overflow-wrap: anywhere; }
+.line.shout { font-style: normal; font-family: var(--display); letter-spacing: 0.02em; font-size: 1.1rem; }
+dl { margin: 0; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; font-size: 0.86rem; }
+dt { color: var(--muted); }
+dd { margin: 0; overflow-wrap: anywhere; }
+footer { margin-top: 56px; padding-top: 16px; border-top: 2px solid var(--ink); color: var(--muted); font-size: 0.9rem; display: grid; gap: 6px; max-width: 75ch; }
+
+@media (max-width: 720px) {
+  .strip { flex-direction: column; }
+  .strip a { border-right: 0; border-bottom: 1px solid var(--ink); flex: none !important; display: flex; justify-content: space-between; gap: 8px; }
+  .strip a:last-child { border-bottom: 0; }
+  .strip .t { order: 2; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .strip a { transition: background 120ms ease; }
+}
+</style>
+
+<div class="wrap">
+  <header>
+    <span class="eyebrow">AI-þátturinn (vinnuheiti) · Þáttur 1 · 9. október 2026</span>
+    <h1>Storyboard fyrsta þáttar</h1>
+    <p class="lede">32 rammar, um 14 mínútur. Hver liður byggir á einni MORFÍS-ræðu af Drive hjá Adda. Gulu merkin sýna hvaða rammar fara í lóðréttar klippur, og brotalínan í hverjum ramma sýnir 9:16 skurðinn fyrir TikTok, Shorts og Reels. Handrit og heimildir eru í repo-inu: <code>thaettir/001-2026-10-09/</code>.</p>
+  </header>
+
+  <h2 style="margin-top:28px">Það sem þið þurfið að ákveða</h2>
+  <div class="decisions">
+    <div class="decision"><b>Nafn þáttarins</b><p>Vinnuheiti er „AI-þátturinn“. Aðrar hugmyndir: „Gervigreind vikunnar“, „Vikan í gervigreind“.</p></div>
+    <div class="decision"><b>Einn eða tveir stjórnendur</b><p>Teiknað fyrir einn. Með tveimur: annar tekur fréttirnar, hinn leikinn og djúpkafið.</p></div>
+    <div class="decision"><b>Sviðið</b><p>Rautt hringlaga teppi (Ted-talkið) og korktafla sem verður samsærisveggurinn. Ekkert TED-merki; það er vörumerki.</p></div>
+    <div class="decision"><b>Heiti potturinn</b><p>Takið upp heima eða með leyfi sundlaugar, án annarra gesta í mynd.</p></div>
+  </div>
+
+  <div class="strip-wrap">
+    <h2 style="margin-top:12px">Þátturinn á einni ræmu</h2>
+    <nav class="strip" id="strip" aria-label="Liðir þáttarins"></nav>
+    <div class="legend">
+      <span><span class="chip">K1</span> rammi fer í lóðrétta klippu</span>
+      <span><span class="swatch"></span> 9:16 skurður</span>
+      <span>Rautt = rauða teppið, sviðið</span>
+    </div>
+  </div>
+
+  <main id="segments"></main>
+
+  <footer>
+    <span>Heimildir fyrir hverja fullyrðingu (H1 til H22) eru í <code>rannsokn.md</code>. Reglur YouTube og TikTok um merkingu gervigreindarefnis eru í <code>snid/thattarsnid.md</code>.</span>
+    <span>EKKI GLEYMA HEIMILDUNUM.</span>
+  </footer>
+</div>
+
+<script>
+const SEGMENTS = [
+  { id: "opnun", n: "1", name: "Opnun: Ted-talkið", from: 0, to: 50, src: "Stummi 1", who: "Eva, „Ted talkið mitt“" },
+  { id: "heimur", n: "2", name: "Fréttir: heimurinn", from: 50, to: 180, src: "Allar ræður", who: "dagsetning og heimild á hverju spjaldi" },
+  { id: "island", n: "3", name: "Fréttir: Ísland", from: 180, to: 380, src: "Allar ræður", who: "Skoppa og Skrítla, lög, Brynjolfsson, Bakki" },
+  { id: "leikur", n: "4", name: "Raunveruleikinn eða Black Mirror?", from: 380, to: 470, src: "Memmi 1", who: "Særún, „Hestanafn eða mannanafn?“" },
+  { id: "veistu", n: "5", name: "VEISTU HVAÐ?", from: 470, to: 650, src: "Stummi 2", who: "Eva, samsærisræðan, en allt með heimild" },
+  { id: "2036", n: "6", name: "Árið er 2036", from: 650, to: 750, src: "Memmi 2", who: "Særún, „Árið er 2087“" },
+  { id: "spurn", n: "7", name: "Spurningar vikunnar", from: 750, to: 790, src: "Stummi 1", who: "Hjördís, spurningalistinn" },
+  { id: "svor", n: "8", name: "Svörin", from: 790, to: 840, src: "SVÖR", who: "einlægi lokakaflinn" }
+];
+
+// k = klippa, s = skot, l = tal, g = grafík, h = hljóð, shout = hástafir
+const PANELS = [
+  { seg: "opnun", t: "0:00", s: "nae", shot: "Nærmynd", l: "Kæru vinir, vélmenni og önnur góð viðhengi.", g: "Engin", h: "Þögn", k: "K1", prop: "clicker", close: true },
+  { seg: "opnun", t: "0:06", s: "vid", shot: "Víðmynd", l: "Sæl og blessuð og velkomin á Ted-talkið mitt.", g: "Engin", h: "Lófaklapp, allt of hátt", k: "K1" },
+  { seg: "opnun", t: "0:12", s: "nae", shot: "Nærmynd, hoppklipping", l: "Neeeiii, ég segi svona.", g: "„AI-þátturinn“ í horni", h: "Klappið klippt af", k: "K1", smile: true },
+  { seg: "opnun", t: "0:22", s: "split", shot: "Miðnærmynd + spjald", l: "...líka hjá þeim sem borga ekki krónu.", g: "GPT-6 fyrir alla · 7. okt. · OpenAI", card: ["GPT-6", "FYRIR ALLA", "7. okt. · OpenAI"], k: "K1" },
+  { seg: "opnun", t: "0:35", s: "words", shot: "Nærmynd, hröð nálgun", l: "ÞAÐ VAR EKKI ALLTAF HEIÐARLEGT.", shout: true, g: "Orðin birtast eitt og eitt", h: "Bassahögg", k: "K1", words: ["ÞAÐ VAR EKKI", "ALLTAF", "HEIÐARLEGT."] },
+  { seg: "opnun", t: "0:45", s: "logo", shot: "Grafík", l: "", g: "Merki þáttarins", h: "Stef, 5 sek." },
+
+  { seg: "heimur", t: "0:50", s: "screen", shot: "Skjáupptaka + Addi í horni", l: "...og færð reiknivél.", g: "Sol = greiðandi · Luna = ókeypis", h: "Lágt undirspil", ui: "calc" },
+  { seg: "heimur", t: "1:25", s: "steps", shot: "Grafík", l: "Fyrst fer það til fólks sem ver tölvukerfi.", g: "Netvarnarfólk → greiðandi API og Ultra → ?", steps: ["Netvarnar-", "Greiðandi", "?"], steps2: ["fólk", "API, Ultra", ""] },
+  { seg: "heimur", t: "2:00", s: "map", shot: "Grafík, kort", l: "Er íslenska þar á meðal? Það stendur hvergi.", g: "160+ tungumál", map: "europe" },
+  { seg: "heimur", t: "2:15", s: "nae", shot: "Nærmynd, beint í linsu", l: "Mistral, ef þið eruð að horfa: viiiitið þið hvað?", g: "", h: "", eyes: "lens" },
+  { seg: "heimur", t: "2:30", s: "bars", shot: "Grafík", l: "Tuttugu milljarða dala munur.", g: "~70 → ~50 milljarðar dala · FT, 8. okt.", h: "Lækkandi tónn" },
+
+  { seg: "island", t: "3:00", s: "headline", shot: "Skjámynd", l: "Í þessari viku greindi Lestin á RÚV frá því...", g: "Heimild: RÚV, 9. okt.", k: "K2", head: ["Skoppa og Skrítla segjast", "blekktar af gervimyndhöfundi"], outlet: "RÚV" },
+  { seg: "island", t: "3:40", s: "screen", shot: "Skjáupptaka", l: "Þú ferð á synthid.com...", g: "Virkar bara á efni frá Google og samstarfsaðilum", k: "K2", ui: "upload" },
+  { seg: "island", t: "4:20", s: "mnae", shot: "Miðnærmynd, rólegra", l: "...á það við um okkur fullorðna líka.", g: "", k: "K2" },
+  { seg: "island", t: "4:30", s: "timeline", shot: "Grafík, tímalína", l: "Fyrstu lög um gervigreind á Íslandi kæmu í vetur.", g: "AI Act ESB → samráð í haust → lög í vetur · Vísir, 27. sept.", dots: ["AI Act ESB", "Samráð í haust", "Lög í vetur"] },
+  { seg: "island", t: "4:55", s: "quote", shot: "Grafík, tilvitnun", l: "Gervigreindin býr okkur í hendur öflugri tæki...", g: "Tilvitnun · RÚV, 7. okt.", q: ["„Gervigreindin býr okkur í hendur", "öflugri tæki en nokkru", "sinni fyrr í sögunni.“"] },
+  { seg: "island", t: "5:25", s: "map", shot: "Grafík, kort", l: "Níu af hverjum tíu gagnaverum í Noregi...", g: "100 MW · ~120 ma. kr. · ~50 föst störf / 9 af 10 í eigu útlendinga", map: "iceland" },
+  { seg: "island", t: "6:05", s: "card", shot: "Grafík", l: "Við fylgjumst með í næsta þætti.", g: "Optise · 14. okt. · San Francisco", card: ["OPTISE", "14. OKT.", "San Francisco"] },
+
+  { seg: "leikur", t: "6:20", s: "game", shot: "Víðmynd, leikjaþáttur", l: "Strappaðu þig við sætið þitt...", g: "RAUNVERULEIKINN / BLACK MIRROR", h: "Leikjaþáttastef", k: "K3" },
+  { seg: "leikur", t: "6:30", s: "stamp", shot: "Grafík → miðnærmynd", l: "Black Mirror? NEI. RAUNVERULEIKINN.", shout: true, g: "Fullyrðing → 3 sek. klukka → stimpill + heimild", h: "Tikk-takk, bjalla", k: "K3", stamp: "RAUNVERULEIKINN" },
+  { seg: "leikur", t: "7:35", s: "mnae", shot: "Miðnærmynd", l: "Svo munið: EKKI GLEYMA BÝFLUGUNUM.", g: "Stimpill: BÆÐI", h: "Suð", k: "K3", prop: "bee", stampSmall: "BÆÐI" },
+
+  { seg: "veistu", t: "7:50", s: "nae", shot: "Nærmynd, dökk lýsing", l: "VEISTU HVAÐ?", shout: true, g: "", h: "Spennuhljóð", k: "K4", prop: "mugs", dark: true },
+  { seg: "veistu", t: "8:10", s: "timeline", shot: "Grafík, tímalína", l: "...ekki stöðvuð fyrr en tveimur og hálfri klukkustund síðar.", g: "20. sept. · 15 mín · 3 mín · 2,5 klst.", k: "K4", dots: ["15 mín", "3 mín", "2,5 klst."] },
+  { seg: "veistu", t: "9:00", s: "wall", shot: "Víðmynd, korktafla", l: "Og ég fór enn dýpra.", g: "Prentaðar fyrirsagnir með dagsetningu og heimild", k: "K4" },
+  { seg: "veistu", t: "10:30", s: "mnae", shot: "Miðnærmynd, hlýrra ljós", l: "Nei, sko. Þetta er ekki samsæri.", g: "", h: "Tónlistin hættir", k: "K4", prop: "mug" },
+
+  { seg: "2036", t: "10:50", s: "tub", shot: "Miðnærmynd, heitur pottur", l: "Árið er 2036.", g: "SKÁLDSKAPUR efst í horni", h: "Draumkennt hljóð", k: "K5" },
+  { seg: "2036", t: "11:05", s: "hud", shot: "Grafík yfir mynd", l: "Maðurinn til vinstri heitir Gunnar.", g: "Gunnar · nefndi þig 3x · Stemning: hlutlaus til neikvæð", h: "Lágt píp", k: "K5" },
+  { seg: "2036", t: "12:00", s: "black", shot: "Svartur skjár", l: "Þetta er skáldskapur. En tvennt af þessu er ekki skáldskapur.", g: "Svo: Noregur, 5. okt. · Reuters / TIME, 6. okt.", h: "Snögg þögn", k: "K5" },
+
+  { seg: "spurn", t: "12:30", s: "list", shot: "Miðnærmynd + listi", l: "Hér koma nokkrar spurningar.", g: "Spurningar 1 til 4" },
+
+  { seg: "svor", t: "13:10", s: "mnae", shot: "Miðnærmynd, hlý lýsing", l: "Kæru áhorfendur.", g: "Þrjú atriði, eitt í einu", h: "Þögn", warm: true },
+  { seg: "svor", t: "13:45", s: "words", shot: "Nærmynd", l: "EKKI GLEYMA HEIMILDUNUM!", shout: true, g: "Heimildaspjald H1 til H22", h: "Stef", words: ["EKKI GLEYMA", "HEIMILDUNUM!"] },
+  { seg: "svor", t: "13:55", s: "nae", shot: "Nærmynd", l: "...og býflugunum.", g: "", h: "Suð", prop: "bee" }
+];
+
+const W = 320, H = 180;
+const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const ink = 'stroke="currentColor" fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"';
+const txt = (x, y, s, size = 14, anchor = "middle", extra = "") =>
+  `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}" fill="currentColor" font-family="Anton, Impact, sans-serif" ${extra}>${esc(s)}</text>`;
+const small = (x, y, s, size = 10, anchor = "middle") =>
+  `<text x="${x}" y="${y}" font-size="${size}" text-anchor="${anchor}" fill="var(--muted)" font-family="IBM Plex Mono, monospace">${esc(s)}</text>`;
+
+function person(cx, headY, r, opts = {}) {
+  const shoulders = headY + r * 1.15;
+  let s = `<circle cx="${cx}" cy="${headY}" r="${r}" ${ink}/>`;
+  s += `<path d="M ${cx - r * 2.3} ${H + 4} Q ${cx - r * 2.1} ${shoulders} ${cx} ${shoulders} Q ${cx + r * 2.1} ${shoulders} ${cx + r * 2.3} ${H + 4}" ${ink}/>`;
+  const ey = headY - r * 0.12, ex = r * 0.36;
+  if (opts.eyes === "lens") {
+    s += `<circle cx="${cx - ex}" cy="${ey}" r="${r * 0.11}" fill="currentColor"/><circle cx="${cx + ex}" cy="${ey}" r="${r * 0.11}" fill="currentColor"/>`;
+  } else {
+    s += `<path d="M ${cx - ex - r * 0.1} ${ey} h ${r * 0.2} M ${cx + ex - r * 0.1} ${ey} h ${r * 0.2}" ${ink}/>`;
+  }
+  const my = headY + r * 0.42;
+  s += opts.smile
+    ? `<path d="M ${cx - r * 0.35} ${my - 2} Q ${cx} ${my + r * 0.3} ${cx + r * 0.35} ${my - 2}" ${ink}/>`
+    : `<path d="M ${cx - r * 0.28} ${my} h ${r * 0.56}" ${ink}/>`;
+  return s;
+}
+
+function clip916(k) {
+  if (!k) return "";
+  const w = H * 9 / 16, x = (W - w) / 2;
+  return `<rect x="${x}" y="1.5" width="${w}" height="${H - 3}" fill="none" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="5 4"/>` +
+    `<text x="${x + w - 4}" y="13" font-size="9" text-anchor="end" fill="var(--accent)" font-family="IBM Plex Mono, monospace">9:16</text>`;
+}
+
+function prop(p, cx, y) {
+  if (p === "clicker") return `<rect x="${cx + 52}" y="${y}" width="12" height="26" rx="3" ${ink}/><circle cx="${cx + 58}" cy="${y + 8}" r="2.5" fill="currentColor"/>`;
+  if (p === "bee") return bee(cx + 62, y + 4, 1);
+  if (p === "mugs") return mug(cx - 92, y + 18) + mug(cx + 70, y + 18);
+  if (p === "mug") return mug(cx + 70, y + 30);
+  return "";
+}
+function mug(x, y) {
+  return `<path d="M ${x} ${y} h 22 v 26 q 0 6 -6 6 h -10 q -6 0 -6 -6 z" ${ink}/><path d="M ${x + 22} ${y + 6} q 10 0 10 8 q 0 8 -10 8" ${ink}/><path d="M ${x + 7} ${y - 6} q 3 -5 0 -10 M ${x + 14} ${y - 6} q 3 -5 0 -10" ${ink} stroke-width="1.6"/>`;
+}
+function bee(x, y, sc) {
+  return `<g transform="translate(${x} ${y}) scale(${sc})"><ellipse cx="0" cy="0" rx="13" ry="9" fill="var(--mark)" stroke="currentColor" stroke-width="2"/><path d="M -4 -8 v 16 M 4 -8 v 16" stroke="currentColor" stroke-width="2.4"/><ellipse cx="-3" cy="-13" rx="7" ry="5" ${ink} stroke-width="1.6"/><ellipse cx="7" cy="-12" rx="6" ry="4.5" ${ink} stroke-width="1.6"/></g>`;
+}
+
+function frameSVG(p) {
+  let s = "", bg = "";
+  const cx = W / 2;
+  switch (p.s) {
+    case "nae":
+      if (p.dark) bg = `<rect width="${W}" height="${H}" fill="currentColor" opacity="0.08"/>`;
+      s = person(cx, 74, 40, { smile: p.smile, eyes: p.eyes }) + prop(p.prop, cx, 96);
+      break;
+    case "mnae":
+      if (p.warm) bg = `<rect width="${W}" height="${H}" fill="var(--mark)" opacity="0.14"/>`;
+      s = person(cx, 70, 26) + prop(p.prop, cx, 100);
+      if (p.stampSmall) s += `<g transform="rotate(-12 ${cx - 90} 50)"><rect x="${cx - 128}" y="34" width="76" height="30" fill="none" stroke="var(--accent)" stroke-width="3"/>${txt(cx - 90, 57, p.stampSmall, 20, "middle", 'style="fill:var(--accent)"')}</g>`;
+      break;
+    case "vid":
+      s = `<ellipse cx="${cx}" cy="150" rx="74" ry="16" fill="var(--rug)" opacity="0.85"/>` +
+        `<circle cx="${cx}" cy="70" r="11" ${ink}/><path d="M ${cx} 81 v 44 M ${cx} 125 l -12 25 M ${cx} 125 l 12 25 M ${cx} 92 l -18 18 M ${cx} 92 l 18 -10" ${ink}/>` +
+        `<path d="M 20 ${H - 8} h ${W - 40}" ${ink} stroke-width="1" opacity="0.35"/>`;
+      break;
+    case "split":
+      s = `<g>${person(92, 74, 26)}</g><rect x="176" y="30" width="124" height="120" rx="4" ${ink}/>` +
+        txt(238, 74, p.card[0], 26) + txt(238, 100, p.card[1], 15) + small(238, 128, p.card[2], 9);
+      break;
+    case "words":
+      s = p.words.map((w, i) => txt(cx, 62 + i * 40 - (p.words.length === 2 ? -18 : 0), w, i === p.words.length - 1 ? 34 : 26)).join("");
+      s = `<rect x="34" y="${p.words.length === 2 ? 50 : 36}" width="${W - 68}" height="${p.words.length === 2 ? 88 : 112}" fill="var(--mark)" opacity="0.9"/>` +
+        s.replace(/fill="currentColor"/g, 'fill="#14171c"');
+      break;
+    case "logo":
+      s = `<rect x="70" y="56" width="180" height="68" rx="6" ${ink} stroke-width="3"/>` + txt(cx, 103, "AI-ÞÁTTURINN", 28);
+      break;
+    case "screen": {
+      s = `<rect x="22" y="16" width="${W - 44}" height="${H - 32}" rx="5" ${ink}/><path d="M 22 34 h ${W - 44}" ${ink}/>` +
+        `<circle cx="34" cy="25" r="3" fill="currentColor"/><circle cx="44" cy="25" r="3" fill="currentColor"/><circle cx="54" cy="25" r="3" fill="currentColor"/>`;
+      if (p.ui === "calc") {
+        s += `<path d="M 40 52 h 120 M 40 64 h 90" ${ink} stroke-width="1.6" opacity="0.6"/>` +
+          `<rect x="40" y="76" width="110" height="64" rx="4" ${ink}/>` +
+          [0, 1, 2].map(i => [0, 1].map(j => `<rect x="${48 + i * 34}" y="${100 + j * 18}" width="26" height="12" rx="2" ${ink} stroke-width="1.4"/>`).join("")).join("") +
+          `<rect x="48" y="82" width="94" height="12" rx="2" fill="var(--accent)" opacity="0.25"/>` +
+          `<circle cx="258" cy="122" r="22" ${ink}/><circle cx="258" cy="116" r="7" ${ink} stroke-width="1.6"/><path d="M 245 138 q 13 -14 26 0" ${ink} stroke-width="1.6"/>`;
+      } else {
+        s += `<rect x="70" y="50" width="180" height="76" rx="4" ${ink} stroke-dasharray="6 5"/>` +
+          `<path d="M ${cx} 98 v -30 M ${cx - 12} 80 l 12 -12 l 12 12" ${ink}/>` + small(cx, 118, "synthid.com", 10) +
+          `<rect x="70" y="134" width="180" height="16" rx="3" fill="var(--accent)" opacity="0.22"/>`;
+      }
+      break;
+    }
+    case "steps":
+      s = [0, 1, 2].map(i => {
+        const x = 30 + i * 96;
+        return `<rect x="${x}" y="58" width="76" height="64" rx="4" ${ink} ${i === 0 ? 'fill="var(--mark)" fill-opacity="0.85"' : ""}/>` +
+          txt(x + 38, 86, p.steps[i], 13, "middle", i === 0 ? 'style="fill:#14171c"' : "") + txt(x + 38, 104, p.steps2[i], 13, "middle", i === 0 ? 'style="fill:#14171c"' : "") +
+          (i < 2 ? `<path d="M ${x + 80} 90 h 12 M ${x + 86} 84 l 6 6 l -6 6" ${ink}/>` : "");
+      }).join("") + small(cx, 148, "Google, 30. sept.", 10);
+      break;
+    case "map":
+      if (p.map === "europe") {
+        s = `<path d="M 120 140 q -10 -30 10 -50 q 20 -26 50 -20 q 24 -18 44 0 q 20 14 6 40 q 10 22 -14 34 q -30 14 -60 6 q -26 4 -36 -10 z" ${ink}/>` +
+          `<path d="M 150 118 q 6 -14 22 -12 q 12 6 8 20 q -12 10 -26 6 z" fill="var(--accent)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.6"/>` +
+          `<path d="M 54 46 q 10 -12 30 -8 q 14 6 4 16 q -16 8 -30 2 z" ${ink}/>` +
+          txt(70, 40, "?", 26, "middle", 'style="fill:var(--accent)"') + small(70, 76, "Ísland", 9) + small(165, 160, "160+ tungumál", 10);
+      } else {
+        s = `<path d="M 40 96 q 6 -30 40 -34 q 30 -14 60 2 q 26 0 24 20 q 6 24 -24 30 q -30 12 -64 4 q -36 4 -36 -22 z" ${ink}/>` +
+          `<circle cx="130" cy="68" r="5" fill="var(--rug)"/>` + small(130, 56, "Bakki", 9) +
+          small(102, 150, "100 MW · ~50 föst störf", 9) +
+          `<path d="M 224 150 q -6 -40 18 -70 q 16 -24 34 -40 q 10 6 4 22 q -18 30 -22 58 q -2 22 -20 30 z" ${ink}/>` +
+          small(262, 166, "Noregur: 9 af 10", 9);
+      }
+      break;
+    case "bars":
+      s = `<path d="M 40 150 h 240" ${ink}/>` +
+        `<rect x="88" y="36" width="54" height="114" fill="currentColor" opacity="0.18" stroke="currentColor" stroke-width="2" stroke-dasharray="5 4"/>` +
+        `<rect x="178" y="68" width="54" height="82" fill="var(--accent)" opacity="0.85"/>` +
+        txt(115, 30, "~70", 16) + txt(205, 62, "~50", 16) + small(cx, 168, "milljarðar dala", 10);
+      break;
+    case "headline":
+      s = `<rect x="24" y="22" width="${W - 48}" height="${H - 44}" rx="3" ${ink}/>` + small(40, 42, p.outlet, 10, "start") +
+        txt(40, 82, p.head[0], 16, "start") + txt(40, 104, p.head[1], 16, "start") +
+        `<path d="M 40 126 h 200 M 40 138 h 160" ${ink} stroke-width="1.4" opacity="0.5"/>`;
+      break;
+    case "timeline":
+      s = `<path d="M 40 96 h 240" ${ink}/>` + p.dots.map((d, i) => {
+        const x = 60 + i * 100;
+        return `<circle cx="${x}" cy="96" r="8" ${i === p.dots.length - 1 ? 'fill="var(--mark)" stroke="currentColor" stroke-width="2"' : 'fill="currentColor"'}/>` + txt(x, 74, d, 14);
+      }).join("");
+      break;
+    case "quote":
+      s = txt(36, 66, "„", 48, "start", 'style="fill:var(--accent)"') + p.q.map((l, i) => txt(cx + 8, 76 + i * 24, l.replace(/[„“]/g, ""), 15)).join("");
+      break;
+    case "card":
+      s = `<rect x="80" y="40" width="160" height="100" rx="4" ${ink}/>` + txt(cx, 80, p.card[0], 26) + txt(cx, 106, p.card[1], 15) + small(cx, 126, p.card[2], 9);
+      break;
+    case "game":
+      s = `<rect x="22" y="40" width="96" height="44" rx="22" fill="var(--accent)" opacity="0.9"/>` + txt(70, 67, "RAUNVERU-", 11, "middle", 'style="fill:#fff"') + txt(70, 79, "LEIKINN", 11, "middle", 'style="fill:#fff"') +
+        `<rect x="202" y="40" width="96" height="44" rx="22" fill="currentColor"/>` + txt(250, 67, "BLACK", 12, "middle", 'style="fill:var(--panel)"') + txt(250, 79, "MIRROR", 12, "middle", 'style="fill:var(--panel)"') +
+        `<circle cx="${cx}" cy="78" r="12" ${ink}/><path d="M ${cx} 90 v 40 M ${cx} 130 l -12 26 M ${cx} 130 l 12 26 M ${cx} 100 l -20 6 M ${cx} 100 l 20 -14" ${ink}/>` +
+        `<rect x="${cx + 18}" y="78" width="14" height="18" ${ink} stroke-width="1.6"/>`;
+      break;
+    case "stamp":
+      s = `<rect x="34" y="34" width="${W - 68}" height="54" rx="4" ${ink}/>` + small(cx, 58, "Forsetatilskipun 14434", 10) + small(cx, 74, "29. sept. 2026", 9) +
+        `<g transform="rotate(-8 ${cx} 128)"><rect x="${cx - 104}" y="106" width="208" height="42" fill="none" stroke="var(--accent)" stroke-width="3.5"/>${txt(cx, 137, p.stamp, 24, "middle", 'style="fill:var(--accent)"')}</g>`;
+      break;
+    case "wall":
+      s = `<rect x="16" y="14" width="${W - 32}" height="${H - 28}" rx="3" fill="var(--mark)" fill-opacity="0.12" stroke="currentColor" stroke-width="2"/>`;
+      const notes = [[40, 30], [140, 26], [236, 36], [60, 104], [176, 100], [250, 112]];
+      s += `<path d="M ${notes.map(n => (n[0] + 22) + " " + (n[1] + 16)).join(" L ")}" fill="none" stroke="var(--rug)" stroke-width="1.8"/>`;
+      s += notes.map((n, i) => `<rect x="${n[0]}" y="${n[1]}" width="46" height="34" fill="var(--panel)" stroke="currentColor" stroke-width="1.6" transform="rotate(${[-4, 3, -2, 5, -3, 2][i]} ${n[0] + 23} ${n[1] + 17})"/>` +
+        `<path d="M ${n[0] + 6} ${n[1] + 12} h 30 M ${n[0] + 6} ${n[1] + 20} h 24" stroke="currentColor" stroke-width="1.2" opacity="0.6"/><circle cx="${n[0] + 23}" cy="${n[1] + 3}" r="3" fill="var(--rug)"/>`).join("");
+      break;
+    case "tub":
+      s = `<path d="M 40 112 h 240 v 30 q 0 22 -22 22 h -196 q -22 0 -22 -22 z" ${ink}/>` +
+        `<path d="M 54 124 q 12 -6 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0 t 24 0" ${ink} stroke-width="1.4" opacity="0.6"/>` +
+        `<circle cx="${cx}" cy="78" r="22" ${ink}/><path d="M ${cx - 22} 74 q 22 -36 44 0" fill="var(--accent)" fill-opacity="0.35" stroke="currentColor" stroke-width="1.8"/>` +
+        `<rect x="${cx - 20}" y="76" width="16" height="9" rx="2" fill="currentColor"/><rect x="${cx + 4}" y="76" width="16" height="9" rx="2" fill="currentColor"/>` +
+        `<path d="M ${cx - 46} 112 q 46 -18 92 0" ${ink}/>` +
+        `<rect x="${W - 104}" y="10" width="92" height="18" fill="var(--rug)"/>` + txt(W - 58, 24, "SKÁLDSKAPUR", 11, "middle", 'style="fill:#fff"');
+      break;
+    case "hud":
+      s = `<path d="M 60 160 q 0 -60 60 -70 q 24 -40 50 0 q 50 10 50 70" ${ink} opacity="0.35"/>` +
+        `<rect x="20" y="16" width="172" height="66" rx="6" fill="var(--accent)" fill-opacity="0.12" stroke="var(--accent)" stroke-width="1.8"/>` +
+        txt(30, 38, "GUNNAR", 16, "start", 'style="fill:var(--accent)"') + small(30, 54, "nefndi þig 3x í gær", 9, "start") + small(30, 70, "stemning: hlutlaus til neikvæð", 9, "start") +
+        `<path d="M 192 50 L 230 98" stroke="var(--accent)" stroke-width="1.6" stroke-dasharray="3 3"/><circle cx="236" cy="104" r="8" fill="none" stroke="var(--accent)" stroke-width="2"/>` +
+        `<rect x="${W - 104}" y="10" width="92" height="18" fill="var(--rug)"/>` + txt(W - 58, 24, "SKÁLDSKAPUR", 11, "middle", 'style="fill:#fff"');
+      break;
+    case "black":
+      s = `<rect width="${W}" height="${H}" fill="#0b0d10"/>` + txt(cx, 84, "ÞETTA ER SKÁLDSKAPUR.", 18, "middle", 'style="fill:#fff"') + txt(cx, 110, "EN TVENNT ER ÞAÐ EKKI.", 18, "middle", 'style="fill:#ffd400"');
+      break;
+    case "list":
+      s = person(64, 80, 22) + [1, 2, 3, 4].map(i => txt(150, 36 + i * 28, i + ".", 18, "start") + `<path d="M 172 ${30 + i * 28} h ${110 - (i % 2) * 24}" ${ink} stroke-width="1.6" opacity="0.6"/>`).join("");
+      break;
+  }
+  return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(p.shot + ": " + (p.l || p.g))}" preserveAspectRatio="xMidYMid meet">${bg}${s}${clip916(p.k)}</svg>`;
+}
+
+const total = SEGMENTS[SEGMENTS.length - 1].to;
+const fmt = sec => `${Math.floor(sec / 60)}:${String(sec % 60).padStart(2, "0")}`;
+document.getElementById("strip").innerHTML = SEGMENTS.map(s =>
+  `<a href="#${s.id}" style="flex:${s.to - s.from} 1 0" title="${esc(s.name)}"><span class="t">${fmt(s.from)}</span><span class="n">${esc(s.n + ". " + s.name)}</span></a>`).join("");
+
+let num = 0;
+document.getElementById("segments").innerHTML = SEGMENTS.map(seg => {
+  const cards = PANELS.filter(p => p.seg === seg.id).map(p => {
+    num += 1;
+    const rows = [["Grafík", p.g], ["Hljóð", p.h]].filter(r => r[1]).map(r => `<dt>${r[0]}</dt><dd>${esc(r[1])}</dd>`).join("");
+    return `<article class="card">
+      <div class="frame">${frameSVG(p)}</div>
+      <div class="meta">
+        <div class="row1"><span class="num">${num}</span><span class="tc">${p.t}</span><span class="shot">${esc(p.shot)}</span>${p.k ? `<span class="chip">${p.k}</span>` : ""}</div>
+        ${p.l ? `<p class="line${p.shout ? " shout" : ""}">„${esc(p.l)}“</p>` : ""}
+        ${rows ? `<dl>${rows}</dl>` : ""}
+      </div>
+    </article>`;
+  }).join("");
+  return `<section class="seg" id="${seg.id}">
+    <div class="seg-head"><h2>${esc(seg.n + ". " + seg.name)}</h2><span class="tc">${fmt(seg.from)} til ${fmt(seg.to)}</span>
+    <span class="src">Byggir á <b>${esc(seg.src)}</b> (${esc(seg.who)})</span></div>
+    <div class="grid">${cards}</div>
+  </section>`;
+}).join("");
+</script>

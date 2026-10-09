@@ -66,6 +66,33 @@ Notum alltaf **óháðar** mælingar, aldrei bara tölur fyrirtækjanna sjálfra
 
 Ég er ekki lögfræðingur. Ef þátturinn fer að skila tekjum er skynsamlegt að láta lögfræðing fara yfir þetta.
 
+## Upptaka, uppskrift og skjátextar
+
+Addi tekur upp með Wispr Flow Meeting Recorder í gangi. Wispr skilar nákvæmum íslenskum texta en ekki tímasetningum, svo textinn er stilltur af við hljóðið.
+
+1. **Upptaka.** Kveikja á Wispr Flow Meeting Recorder áður en tekið er upp. Gefa fundinum nafn, t.d. „AI-þátturinn 002“, svo auðvelt sé að finna hann.
+2. **Uppskrift til Claude.** Claude sækir uppskriftina beint gegnum Wispr Flow tengið (nafnið hér að ofan dugar) og vistar hana í `thaettir/<þáttur>/upptaka/wispr.txt`.
+3. **Staðreyndavakt.** Claude ber uppskriftina saman við handritið og athugar allt sem var sagt öðruvísi en í handritinu (tölur, nöfn, dagsetningar) á móti heimildunum.
+4. **Skjátextar.** `python tol/skjatextar.py upptaka.m4a --texti thaettir/<þáttur>/upptaka/wispr.txt --ut thaettir/<þáttur>/skjatextar` býr til:
+   - `skjatextar.srt` fyrir YouTube (2 línur, mest 42 stafir),
+   - `skjatextar_lodrett.srt` fyrir klippur (1 stutt lína),
+   - `skjatextar_ord.json` með tíma hvers orðs, fyrir hreyfigrafík.
+5. **Kaflaskil, lýsing og klippur.** Út frá tímasetningunum: kaflaskil fyrir YouTube og tillögur að klippum með réttum tímum.
+6. **Klippur.** `python tol/klippa.py upptaka.mp4 01:35 02:20 thaettir/<þáttur>/skjatextar_lodrett.srt klippa1.mp4` sker 9:16 bút og brennir textann inn.
+
+**Hljóðskráin:** til að Claude geti gert skref 4 til 6 þarf hljóðskráin að komast til Claude. Repo-ið er opinbert, svo **ekki setja upptökur í það** nema það sé fyrst gert lokað (GitHub: Settings, Danger Zone, Change visibility). Annars má keyra tólin heima: `pip install torch --index-url https://download.pytorch.org/whl/cpu && pip install stable-ts` og ffmpeg.
+
+## Verkfæri
+
+| Verkfæri | Til hvers | Verð | Staða |
+|---|---|---|---|
+| Wispr Flow | Íslensk uppskrift | Addi á það | Tengt við Claude |
+| stable-ts + Whisper | Stilla uppskrift af við hljóð (skjátextar) | Ókeypis, opinn hugbúnaður | Sett upp og prófað |
+| FFmpeg | Klippur, skurður, innbrenndur texti | Ókeypis, opinn hugbúnaður | Sett upp og prófað |
+| Remotion | Hreyfigrafík úr kóða og CSV (í stað After Effects) | Ókeypis fyrir einstaklinga og fyrirtæki með allt að 3 starfsmenn ([leyfi](https://github.com/remotion-dev/remotion/blob/main/LICENSE.md)) | Aðgengilegt, ekki prófað |
+| Blender | Þrívíddargrafík (G01, G04, G09) | Ókeypis, opinn hugbúnaður | Aðgengilegt, ekki prófað |
+| Epidemic Sound (valkvætt) | Tónlist með leyfi fyrir YouTube og TikTok | Óstaðfest: um $17.99 á mánuði eða um $9.99 á mánuði með ársáskrift, samkvæmt þriðja aðila; staðfesta á epidemicsound.com | Aðeins ef tónlist er notuð |
+
 ## Vikulegt vinnuferli
 
 | Dagur | Verk | Skjal |
@@ -74,5 +101,7 @@ Notum alltaf **óháðar** mælingar, aldrei bara tölur fyrirtækjanna sjálfra
 | Fimmtudagur | Handrit (um 1.300 orð), storyboard og CSV-skrár fyrir grafík | `snidmat/handrit.md`, `snidmat/storyboard.md` |
 | Fimmtudagur | Málfarsrýni: `python tol/malfar.py thaettir/<þáttur>/handrit.md` | `tol/malfar.py` |
 | Fimmtudagur | Grafík í After Effects og Blender úr CSV-skránum | `thaettir/<þáttur>/grafik/` |
-| Föstudagur | Upptaka, klipping, birting | |
+| Föstudagur | Upptaka með Wispr Flow í gangi | |
+| Föstudagur | Claude: staðreyndavakt, skjátextar, kaflaskil, lýsing og klippur úr uppskriftinni | `tol/skjatextar.py`, `tol/klippa.py` |
+| Föstudagur | Klipping og birting | |
 | Lau til mán | Klippur á TikTok, Shorts og Reels | |

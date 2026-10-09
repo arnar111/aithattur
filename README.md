@@ -11,6 +11,8 @@ Vikulegur þáttur á íslensku um gervigreind: Addi í vefmyndavél, um 10 mín
 | [`thaettir/`](thaettir/) | Ein mappa fyrir hvern þátt |
 | [`thaettir/001-2026-10-09/`](thaettir/001-2026-10-09/) | Fyrsti þátturinn: [rannsókn](thaettir/001-2026-10-09/rannsokn.md), [storyboard](thaettir/001-2026-10-09/storyboard.md) ([myndræn útgáfa](thaettir/001-2026-10-09/storyboard.html)) og [handrit](thaettir/001-2026-10-09/handrit.md); gögn fyrir grafík í [`grafik/`](thaettir/001-2026-10-09/grafik/) |
 | [`tol/malfar.py`](tol/malfar.py) | Málfarsrýni fyrir handrit (GreynirCorrect frá Miðeind) |
+| [`tol/skjatextar.py`](tol/skjatextar.py) | Skjátextar (SRT) úr upptöku og Wispr Flow uppskrift |
+| [`tol/klippa.py`](tol/klippa.py) | Lóðrétt klippa (9:16) með innbrenndum skjátextum |
 
 ## Málfarsrýni
 

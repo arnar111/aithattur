@@ -1,0 +1,10 @@
+# Artificial Analysis Intelligence Index v4.3. Heimild H2 (9. sept.) og H4 (stigatafla sott 9. okt. 2026).
+stada,modl,fyrirtaeki,stig,kostnadur_a_verkefni_usd
+9-sept,GPT-6 Astra (max),OpenAI,53,3.26
+9-sept,Claude Fable 5.1 (max with fallback),Anthropic,53,7.63
+9-okt,Claude Opus 5.5 (max with fallback),Anthropic,58,5.98
+9-okt,Claude Sonnet 5.5 (max with fallback),Anthropic,56,5.46
+9-okt,Claude Fable 5.1 (max with fallback),Anthropic,53,7.63
+9-okt,GPT-6 Astra (max),OpenAI,53,3.26
+9-okt,Gemini 4 Argon (high),Google,53,1.99
+9-okt,GPT-6.1 Sol (max),OpenAI,52,0.72
